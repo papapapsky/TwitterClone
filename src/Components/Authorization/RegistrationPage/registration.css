@@ -1,0 +1,92 @@
+@keyframes animateLable {
+  from {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+  to {
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+  }
+}
+
+@keyframes preAnimateLable {
+  from {
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+  }
+  to {
+    margin-top: 1rem;
+    font-size: 1rem;
+  }
+}
+
+.focusedInput:not(:placeholder-shown) + label {
+  /* transform: translateY(-10px); */
+  margin-top: 0.4rem;
+  animation: animateLable 0.2s ease forwards;
+  font-size: 0.75rem;
+}
+
+.animatedLable {
+  animation: preAnimateLable 0.2s ease forwards;
+}
+
+.focusedInput:focus:placeholder-shown + .animatedLable {
+  animation: animateLable 0.2s ease forwards;
+}
+.focusedInput:focus {
+  outline: 0;
+  border: 1px solid rgb(0, 132, 255);
+}
+
+@keyframes showError {
+  from {
+    top: -70px;
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 6px solid #fff;
+  border-bottom-color: #006aff;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(0deg);
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.regModal {
+  opacity: 0.4;
+  background-color: rgb(25, 25, 25);
+}
+
+.errorShow {
+  animation: showError 0.3s ease forwards;
+  padding: 10px;
+  top: -50px;
+  left: 50%;
+  transform: translate(-50%);
+  margin-top: 20px;
+
+  box-shadow: 0px 0px 10px 10px rgba(10, 10, 10, 0.7);
+
+  background-color: rgb(20, 20, 20);
+  border-radius: 7px;
+}

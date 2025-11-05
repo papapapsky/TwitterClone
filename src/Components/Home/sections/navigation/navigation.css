@@ -1,0 +1,44 @@
+.active {
+  .activeSvg {
+    fill: #2fdcff;
+  }
+  .linkSpan {
+    font-weight: 700;
+  }
+}
+
+@media (max-width: 1023px) {
+  .linkSpan {
+    display: none;
+  }
+
+  .linkButton {
+    padding-right: 0px;
+    width: 3rem;
+  }
+
+  .advanced-btn {
+    width: 50px;
+    padding: 7px;
+  }
+
+  .advanced-container {
+    width: 30px;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .userInfo {
+    display: none;
+    width: 0;
+  }
+
+  .userInfoBox {
+    padding: 10px;
+    margin: 0;
+    width: 60px;
+    align-items: start;
+  }
+}

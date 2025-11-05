@@ -1,0 +1,46 @@
+.white-link-btn {
+  transition: 0.3s;
+  cursor: pointer;
+  padding: 10px 55px 10px 55px;
+  background-color: #e3e3e3;
+  color: black;
+  font-weight: 600;
+
+  border-radius: 100px;
+}
+
+.white-link-btn:hover {
+  background-color: rgb(169, 169, 169);
+}
+
+.black-link-btn {
+  transition: 0.3s;
+  background-color: black;
+  border: 1px solid rgba(255, 255, 255, 0.358);
+  border-radius: 100px;
+  padding: 10px 116px 10px 116px;
+}
+
+.black-link-btn:hover {
+  background-color: rgb(10, 10, 10);
+}
+
+.Xicon {
+  align-self: center;
+}
+
+@media screen and (max-width: 936px) {
+  .Xicon {
+    position: absolute;
+    width: 50px;
+    align-self: auto;
+    margin-top: 50px;
+  }
+  .welcomeContainer {
+    padding: 10px;
+  }
+
+  .welcomeContent {
+    gap: initial;
+  }
+}
