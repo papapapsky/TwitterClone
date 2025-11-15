@@ -1,7 +1,7 @@
 import { setErrorSlice } from "../../../../../../../reducers/status/error";
 import { setUserInfoDispatch } from "../../../../../../../reducers/user/userInfo";
 import { store } from "../../../../../../../store";
-import type { userInfo } from "../../../../../types/user/userTypes";
+import type { IUser } from "../../../../../../../reducers/user/types/initialState";
 
 interface IProps {
   setActive: (active: boolean) => void;
@@ -13,7 +13,7 @@ interface IProps {
 interface IResponse {
   success: boolean;
   message: string;
-  newUser: userInfo;
+  newUser: IUser;
 }
 
 export const changeProfileInfo = async ({

@@ -3,7 +3,7 @@ import Xicon from "../../assets/Xicon.png";
 import { Link, useNavigate } from "react-router";
 import { sendLoginForm } from "./loginLogic/sendForm";
 import { useEffect, useState } from "react";
-import { LoginModal } from "./modal/LoginModal";
+import { LoginModal } from "./modal/LogingModal";
 
 interface Inputs {
   login: string;

@@ -11,7 +11,6 @@ interface props {
 
 export const AddPost = ({ setPostAddActive }: props) => {
   const [text, setText] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const handleInput = (e: any) => {
@@ -24,7 +23,7 @@ export const AddPost = ({ setPostAddActive }: props) => {
   };
 
   const postAdd = async (title: string) => {
-    const createPost = await addPost({ title, setLoading });
+    const createPost = await addPost({ title });
     if (!createPost) {
       return;
     }
@@ -34,12 +33,7 @@ export const AddPost = ({ setPostAddActive }: props) => {
   return createPortal(
     <>
       <div className="bg-gray-700/60 fixed h-lvh w-full z-20">
-        {loading && (
-          <div className="p-4 modalElement top-[30%] w-170 min-h-100 rounded-xl bg-black/50 z-20">
-            <div className="loader"></div>
-          </div>
-        )}
-        <div className="p-4 modalElement top-[30%] w-170 min-h-100 rounded-xl bg-black">
+        <div className="p-4 modalElement top-[30%] w-[80vw] max-w-170 min-h-100 rounded-xl bg-black">
           <div className="">
             <button
               onClick={() => setPostAddActive(false)}

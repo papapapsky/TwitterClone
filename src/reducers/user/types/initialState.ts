@@ -1,4 +1,6 @@
 export type postsType = {
+  _id: number;
+  uploadDate: string;
   login: string;
   username: string;
   title: string;
@@ -11,7 +13,7 @@ type followType = {
   bio: string;
 };
 
-export interface IinitialState {
+export interface IUser {
   username: string;
   login: string;
   email: string;

@@ -45,7 +45,7 @@ export const SetUpProfile = ({ setChangeProfile }: props) => {
           <div className="loader"></div>
         </div>
       )}
-      <div className="p-4 modalElement w-170 top-[50%] rounded-xl bg-black">
+      <div className="p-4 modalElement top-[50%] w-[80vw] max-w-170 rounded-xl bg-black">
         <div className="">
           <button
             onClick={() => setChangeProfile(false)}

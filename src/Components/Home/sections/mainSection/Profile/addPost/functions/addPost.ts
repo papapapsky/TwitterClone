@@ -1,17 +1,17 @@
 import { setErrorSlice } from "../../../../../../../reducers/status/error";
 import { setUserPosts } from "../../../../../../../reducers/user/userInfo";
 import { store } from "../../../../../../../store";
+import { setLoadingState } from "../../../../../../../reducers/status/loading";
 import { type IaddPost } from "../../../../../types/post/postTypes";
 
 interface props {
   title: string;
-  setLoading: (loading: boolean) => void;
 }
 
-export const addPost = async ({ title, setLoading }: props) => {
+export const addPost = async ({ title }: props) => {
   store.dispatch(setErrorSlice({ error: "", show: false }));
   try {
-    setLoading(true);
+    store.dispatch(setLoadingState({ loading: true }));
     const token = localStorage.getItem("authToken");
     if (!token) return;
     const addPost = await fetch("http://localhost:3000/api/post/addPost", {
@@ -36,8 +36,9 @@ export const addPost = async ({ title, setLoading }: props) => {
     store.dispatch(setUserPosts({ post: response.Post }));
     return true;
   } catch (e) {
+    console.log(e);
     return;
   } finally {
-    setLoading(false);
+    store.dispatch(setLoadingState({ loading: false }));
   }
 };

@@ -31,6 +31,7 @@ export const Registration = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<Inputs> = (data: Inputs) => {
+    console.log(data.email);
     sendForm({ ...data, setError, setLoading, navigate });
   };
 
@@ -40,7 +41,7 @@ export const Registration = () => {
         <div className="w-full max-w-[420px] flex flex-col items-center">
           <img src={Xicon} alt="" className="invert w-10 mb-5" />
           <h2 className="text-3xl font-semibold text-center">
-            Создайте учетную запись
+            Create an account
           </h2>
 
           <form
@@ -59,7 +60,7 @@ export const Registration = () => {
                 htmlFor="login"
                 className="absolute left-2 text-neutral-500 animatedLable"
               >
-                Имя
+                Login
               </label>
               <p className="text-sm text-red-500 mt-1">
                 {errors.login?.message ||
@@ -82,7 +83,7 @@ export const Registration = () => {
                 htmlFor="email"
                 className="absolute left-2 text-neutral-500 animatedLable"
               >
-                Почта
+                Email
               </label>
               <p className="text-sm text-red-500 mt-1">
                 {errors.email?.message ||
@@ -107,7 +108,7 @@ export const Registration = () => {
                 htmlFor="password"
                 className="absolute left-2 text-neutral-500 animatedLable"
               >
-                Пароль
+                Password
               </label>
               <p className="text-sm text-red-500 mt-1">
                 {errors.password?.message ||
@@ -139,7 +140,7 @@ export const Registration = () => {
             {loading && <RegistrationModal />}
 
             <button type="submit" className="mt-4 w-full white-link-btn">
-              Зарегистрироваться
+              Register
             </button>
 
             <p className="text-center mt-2">

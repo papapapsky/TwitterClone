@@ -1,12 +1,12 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { store } from "../../store";
-import type { IinitialState, postsType } from "./types/initialState";
+import type { IUser, postsType } from "./types/initialState";
 
 interface actionState {
   post: postsType;
 }
 
-const initialState: IinitialState = {
+const initialState: IUser = {
   email: "",
   username: "",
   login: "",
@@ -25,11 +25,10 @@ const userInfo = createSlice({
   name: "userInfo",
   initialState,
   reducers: {
-    setUserInfoDispatch: (_, action: PayloadAction<IinitialState>) => {
+    setUserInfoDispatch: (_, action: PayloadAction<IUser>) => {
       return action.payload;
     },
     setUserPosts: (state, action: PayloadAction<actionState>) => {
-      console.log(action.payload.post);
       state.posts.push(action.payload.post);
     },
   },

@@ -1,9 +1,9 @@
-import type { userInfo } from "../../../../types/user/userTypes";
+import type { IUser } from "../../../../../../reducers/user/types/initialState";
 import { getAnotherUserInfo } from "../../../navigation/functions/getAnotherUserInfo";
 
 interface IParams {
   user: string;
-  setAnotherUser: (userInfo: userInfo) => void;
+  setAnotherUser: (userInfo: IUser) => void;
 }
 
 export const anotherUserInfo = async ({ user, setAnotherUser }: IParams) => {
@@ -11,7 +11,7 @@ export const anotherUserInfo = async ({ user, setAnotherUser }: IParams) => {
   if (!authToken) return;
 
   if (user) {
-    const userInfo: userInfo | null = await getAnotherUserInfo({
+    const userInfo: IUser | null = await getAnotherUserInfo({
       login: user,
       authToken,
     });

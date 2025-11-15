@@ -1,5 +1,8 @@
 import type { NavigateFunction } from "react-router";
 import type { IError } from "../Registration";
+import { setUnregisteredUser } from "../../../../reducers/unregisteredUser/unregisteredUser";
+import { store } from "../../../../store";
+// import { setUserInfoDispatch } from "../../../../reducers/user/userInfo";
 
 export type errorsType = {
   field: string;
@@ -55,7 +58,12 @@ export const sendForm = async ({
       return false;
     }
     localStorage.setItem("authToken", response.token);
-    navigate("/login");
+    localStorage.setItem(
+      "unregisteredUser",
+      JSON.stringify({ date, login, password, email })
+    );
+    store.dispatch(setUnregisteredUser({ date, login, password, email }));
+    navigate("/emailConfirm");
   } catch (e) {
     console.log(e);
   } finally {

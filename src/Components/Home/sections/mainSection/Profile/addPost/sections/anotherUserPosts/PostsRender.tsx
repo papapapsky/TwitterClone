@@ -1,21 +1,20 @@
 import { UserIcon } from "../../../../../navigation/assets/UserIcon";
 import { Like } from "../../../assets/Like";
-
-export interface IPostsProps {
-  username: string;
-  login: string;
-  title: string;
-  likes: number;
-}
+import type { postsType } from "../../../../../../../../reducers/user/types/initialState";
 
 export const AnotherUserPostsRender = ({
   username,
   login,
   title,
   likes,
-}: IPostsProps) => {
+  uploadDate,
+  _id,
+}: postsType) => {
   return (
-    <div className="py-4 border-b border-neutral-800 hover:bg-neutral-900/40 duration-200 px-2">
+    <div
+      id={`${_id}`}
+      className="py-4 border-b border-neutral-800 hover:bg-neutral-900/40 duration-200 px-2"
+    >
       <div className="flex gap-2">
         <UserIcon classes="w-11 h-11" />
         <div>
@@ -23,11 +22,14 @@ export const AnotherUserPostsRender = ({
           <p className="text-neutral-500 text-sm">@{login}</p>
         </div>
       </div>
-      <p className="text-sm ml-14 mt-2 mb-2 wrap-break-word">{title}</p>
-      <button className="flex items-center gap-1 text-gray-500 hover:text-pink-500 hover:bg-pink-500/20 px-3 py-1 rounded-full duration-200 ml-12">
-        <Like classes="fill-gray-500 hover:fill-pink-500" />
-        <span>{likes}</span>
-      </button>
+      <p className="text-sm ml-13 mt-2 mb-2 wrap-break-word">{title}</p>
+      <div className="flex ml-13 items-center">
+        <span className="text-gray-500 text-[12px]">• {uploadDate}</span>
+        <button className="flex items-center gap-1 text-gray-500 hover:text-pink-500 hover:bg-pink-500/20 px-3 py-1 rounded-full duration-200">
+          <Like classes="fill-gray-500 hover:fill-pink-500" />
+          <span className="text-gray-500">{likes}</span>
+        </button>
+      </div>
     </div>
   );
 };

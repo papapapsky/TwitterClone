@@ -2,11 +2,7 @@ import { useRef, useState } from "react";
 import { UserIcon } from "../../../navigation/assets/UserIcon";
 import { addPost } from "../../Profile/addPost/functions/addPost";
 
-interface IProps {
-  setLoading: (loading: boolean) => void;
-}
-
-export const AddPost = ({ setLoading }: IProps) => {
+export const AddPost = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [text, setText] = useState<string>("");
 
@@ -19,7 +15,8 @@ export const AddPost = ({ setLoading }: IProps) => {
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
   const postAdd = async (title: string) => {
-    const createPost = await addPost({ title, setLoading });
+    console.log(title);
+    const createPost = await addPost({ title });
     if (!createPost) {
       return;
     } else {

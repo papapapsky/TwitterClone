@@ -7,6 +7,32 @@
   }
 }
 
+@keyframes userFeaturesShow {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes userFeaturesHide {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.userFeaturesHide {
+  animation: userFeaturesHide 0.3s ease forwards;
+}
+
+.userFeaturesShow {
+  animation: userFeaturesShow 0.3s ease forwards;
+}
+
 @media (max-width: 1023px) {
   .linkSpan {
     display: none;

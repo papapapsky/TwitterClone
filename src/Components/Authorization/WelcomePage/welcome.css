@@ -40,6 +40,10 @@
     padding: 10px;
   }
 
+  .title {
+    font-size: 3rem;
+  }
+
   .welcomeContent {
     gap: initial;
   }

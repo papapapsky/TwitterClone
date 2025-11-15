@@ -1,5 +1,5 @@
 import "./profile.css";
-import type { userInfo } from "../../../types/user/userTypes";
+import type { IUser } from "../../../../../reducers/user/types/initialState";
 import type { RootState } from "../../../../../reducers/user/userInfo";
 import { getUserInfo } from "../../navigation/functions/getUserInfo";
 import { useEffect, useState } from "react";
@@ -14,13 +14,17 @@ import { SetUpProfile } from "./setUpProfile/SetUpProfile";
 import { anotherUserInfo } from "./functions/anotherUserInfo";
 import { AnotherUserPostsRender } from "./addPost/sections/anotherUserPosts/PostsRender";
 import { ProfileInfoRender } from "./addPost/sections/profileInfo/ProfileInfoRender";
+import { setLoadingState } from "../../../../../reducers/status/loading";
 
 export const Profile = () => {
-  const [anotherUser, setAnotherUser] = useState<userInfo>();
+  const [anotherUser, setAnotherUser] = useState<IUser>();
   const [postAddActive, setPostAddActive] = useState(false);
   const [changeProfile, setChangeProfile] = useState(false);
   const [userAccount, setUserAccount] = useState(false);
   const linkParams = useParams<{ [type: string]: string }>();
+  const prevLinkSelector = useSelector(
+    (state: RootState) => state.prevPage.page
+  );
   const userInfoSelector = useSelector((state: RootState) => state.userInfo);
   const navigate = useNavigate();
 
@@ -38,7 +42,9 @@ export const Profile = () => {
 
   const ifUserAccount = async () => {
     if (!store.getState().userInfo.login) {
+      store.dispatch(setLoadingState({ loading: true }));
       await getUserInfo();
+      store.dispatch(setLoadingState({ loading: false }));
     }
     console.log(store.getState().userInfo.login);
     const accountCheck = isUserAccount();
@@ -52,12 +58,9 @@ export const Profile = () => {
   };
 
   useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
     ifUserAccount();
   }, [linkParams.user]);
-
-  useEffect(() => {
-    console.log(userAccount);
-  }, [userAccount]);
 
   return (
     <>
@@ -67,7 +70,7 @@ export const Profile = () => {
       <div className="min-h-screen w-full bg-black text-white border-x border-neutral-700">
         <header className="h-14 w-full flex items-center px-4 bg-black/80 backdrop-blur-md border-b border-neutral-800 sticky top-0 z-10">
           <button
-            onClick={() => navigate("/x/home")}
+            onClick={() => navigate(prevLinkSelector ?? "/x/home")}
             className="p-2 hover:bg-neutral-800 duration-200 rounded-full mr-4"
           >
             <Arrow />
@@ -86,7 +89,7 @@ export const Profile = () => {
         </header>
 
         <section className="relative w-full h-40 bg-linear-to-r from-neutral-800 to-neutral-700">
-          <div className="absolute -bottom-12 left-6 flex items-end w-full pr-6">
+          <div className="absolute -bottom-12 left-6 right-6 flex items-end">
             <UserIcon classes="w-28 h-28 rounded-full border-4 border-black bg-neutral-900" />
             {userAccount && (
               <button
@@ -117,6 +120,8 @@ export const Profile = () => {
                 userInfoSelector.posts.map((item, index) => (
                   <div key={index}>
                     <UserPostsRender
+                      _id={item._id}
+                      uploadDate={item.uploadDate}
                       likes={item.likes}
                       login={userInfoSelector.login}
                       title={item.title}
@@ -141,6 +146,8 @@ export const Profile = () => {
               anotherUser.posts.map((item, index) => (
                 <div key={index}>
                   <AnotherUserPostsRender
+                    _id={item._id}
+                    uploadDate={item.uploadDate}
                     likes={item.likes}
                     login={item.login}
                     username={anotherUser.username}

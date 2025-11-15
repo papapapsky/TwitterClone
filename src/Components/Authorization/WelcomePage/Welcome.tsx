@@ -7,8 +7,10 @@ export const Welocome = () => {
     <div className="flex w-full h-lvh justify-center p-20 welcomeContainer">
       <div className="flex items-start gap-[20vw] welcomeContent">
         <img src={Xicon} alt="Xicon" className="invert w-[18vw] Xicon" />
-        <div className="w-150 h-full flex flex-col justify-center">
-          <h1 className="text-7xl font-semibold">В курсе происходящего</h1>
+        <div className="w-full h-full flex flex-wrap flex-col justify-center">
+          <h1 className="text-7xl title font-semibold overflow-hidden wrap-break-word">
+            В курсе происходящего
+          </h1>
           <div className="mt-10">
             <h2 className="text-4xl font-medium">Присоединяйтесь сегодня.</h2>
             <div className="mt-12">

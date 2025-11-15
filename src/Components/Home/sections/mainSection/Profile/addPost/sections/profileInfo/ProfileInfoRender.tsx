@@ -1,10 +1,10 @@
-import type { userInfo } from "../../../../../../types/user/userTypes";
+import type { IUser } from "../../../../../../../../reducers/user/types/initialState";
 import { Calendar } from "../../../assets/Calendar";
 
 interface IProps {
   userAccount: boolean;
-  userInfoSelector: userInfo;
-  anotherUser: userInfo | undefined;
+  userInfoSelector: IUser;
+  anotherUser: IUser | undefined;
 }
 
 export const ProfileInfoRender = ({

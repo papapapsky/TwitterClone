@@ -1,4 +1,3 @@
-import type { userInfo } from "../../types/user/userTypes";
 import {
   navigationSections,
   type INavigationSections,
@@ -6,7 +5,7 @@ import {
 import "./navigation.css";
 import Xicon from "../../../assets/Xicon.png";
 import { NavLink, Link } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Activity } from "react";
 import { UserIcon } from "./assets/UserIcon";
 import { Ellipsis } from "./assets/Ellipsis";
@@ -15,24 +14,55 @@ import { AddPost } from "../mainSection/Profile/addPost/AddPost";
 import { useSelector } from "react-redux";
 import type { RootState } from "../../../../reducers/user/userInfo";
 import { FeatherIcon } from "./assets/FeatherIcon";
+import { UserFeatures } from "./ui/UserFeatures";
+import type { IUser } from "../../../../reducers/user/types/initialState";
+import { LogoutModal } from "./ui/LogoutModal";
 
 export const Navigation = () => {
   const userInfoSelector = useSelector((state: RootState) => state.userInfo);
   const [sections, setSections] = useState<INavigationSections[]>([]);
-  const [userInfo, setUserInfo] = useState<userInfo>(store.getState().userInfo);
+  const [userInfo, setUserInfo] = useState<IUser>(store.getState().userInfo);
   const [postAddActive, setPostAddActive] = useState<boolean>(false);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [modalVisible, setModalVisible] = useState<boolean>(false);
+
+  const userBoxRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+
+  const clickOutside = (e: MouseEvent) => {
+    if (
+      userBoxRef.current &&
+      !userBoxRef.current.contains(e.target as Node) &&
+      featuresRef.current &&
+      !featuresRef.current.contains(e.target as Node)
+    ) {
+      featuresRef.current.classList.add("userFeaturesHide");
+      setTimeout(() => {
+        if (featuresRef.current)
+          featuresRef.current.classList.remove("userFeaturesHide");
+
+        setVisible(false);
+      }, 300);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", clickOutside);
+    return () => document.removeEventListener("click", clickOutside);
+  }, []);
 
   useEffect(() => {
     navigationSections({ setSections, setUserInfo });
   }, []);
 
   return (
-    <div className="text-left w-58 h-lvh mr-5 advanced-container">
+    <div className="navigateSection text-left w-52 h-lvh advanced-container select-none">
+      {modalVisible && <LogoutModal setModalVisible={setModalVisible} />}
       {postAddActive && <AddPost setPostAddActive={setPostAddActive} />}
       <header className="mb-3 fixed">
-        <button className="p-3 rounded-[100px] hover:bg-neutral-800 duration-300">
+        <button className="p-3 rounded-[100px] hover:bg-neutral-800 mt-1 duration-300">
           <Link to="/x/home">
-            <img src={Xicon} alt="" className="invert w-[30px]" />
+            <img src={Xicon} alt="" className="invert w-[25px]" />
           </Link>
         </button>
       </header>
@@ -58,9 +88,25 @@ export const Navigation = () => {
             <FeatherIcon classes="fill-black m-auto w-8 h-8" />
           </button>
         </div>
-        <div className="relative top-60 w-auto ">
+        <div className="relative top-40 w-auto">
           <Activity mode={userInfoSelector ? "visible" : "hidden"}>
-            <div className="flex userInfoBox items-center gap-5 hover:bg-neutral-900 p-2 duration-200 rounded-full">
+            {visible && (
+              <div
+                ref={featuresRef}
+                className="absolute bottom-full mb-2 w-56 z-50"
+              >
+                <UserFeatures
+                  setModalVisible={setModalVisible}
+                  userInfo={userInfo}
+                  userInfoSelector={userInfoSelector}
+                />
+              </div>
+            )}
+            <div
+              ref={userBoxRef}
+              onClick={() => setVisible((v) => !v)}
+              className="flex userInfoBox items-center gap-5 hover:bg-neutral-900 p-2 duration-200 rounded-full relative z-0"
+            >
               <UserIcon classes="" />
               <div className="userInfo">
                 <h3>{userInfoSelector.username}</h3>

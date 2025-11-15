@@ -1,12 +1,7 @@
-type postType = {
-  likes: number;
-  title: string;
-  login: string;
-  username: string;
-};
+import type { postsType } from "../../../../reducers/user/types/initialState";
 
 export interface IaddPost {
   message: string;
   success: boolean;
-  Post: postType;
+  Post: postsType;
 }

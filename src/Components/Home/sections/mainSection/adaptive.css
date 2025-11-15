@@ -1,0 +1,9 @@
+@media (max-width: 1023px) {
+  .mainSection {
+    width: 100%;
+  }
+
+  .navigateSection {
+    margin: 5px;
+  }
+}

@@ -1,4 +1,5 @@
 type postsType = {
+  uploadDate: string;
   login: string;
   username: string;
   title: string;

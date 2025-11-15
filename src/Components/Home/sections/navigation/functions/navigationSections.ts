@@ -6,10 +6,10 @@ import { ListsIcon } from "../assets/ListsIcon";
 import { MessagesIcon } from "../assets/MessagesIcon";
 import { NotificationsIcon } from "../assets/NotificationsIcon";
 import { ProfileIcon } from "../assets/ProfileIcon";
+import { getUserInfo } from "./getUserInfo";
 import { store } from "../../../../../store";
 import type { ElementType } from "react";
-import { getUserInfo } from "./getUserInfo";
-import type { userInfo } from "../../../types/user/userTypes";
+import type { IUser } from "../../../../../reducers/user/types/initialState";
 
 export interface INavigationSections {
   svg: ElementType;
@@ -18,15 +18,12 @@ export interface INavigationSections {
 }
 
 type props = {
-  setUserInfo: (setUserInfo: userInfo) => void;
+  setUserInfo: (setUserInfo: IUser) => void;
   setSections: (setSections: INavigationSections[]) => void;
 };
 
-export const navigationSections = async ({
-  setSections,
-  setUserInfo,
-}: props) => {
-  await getUserInfo({ setUserInfo });
+export const navigationSections = async ({ setSections }: props) => {
+  await getUserInfo();
   const login = store.getState().userInfo.login;
 
   const sections: INavigationSections[] = [

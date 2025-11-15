@@ -1,10 +1,10 @@
 import { store } from "../../../../../store";
 import { setUserInfoDispatch } from "../../../../../reducers/user/userInfo";
-import type { userInfo } from "../../../types/user/userTypes";
+import type { IUser } from "../../../../../reducers/user/types/initialState";
 
 interface responseInfo {
   success: boolean;
-  user: userInfo;
+  user: IUser;
 }
 
 export const getUserInfo = async () => {

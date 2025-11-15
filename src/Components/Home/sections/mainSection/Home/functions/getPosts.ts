@@ -1,41 +1,43 @@
 import { setErrorSlice } from "../../../../../../reducers/status/error";
+import { setLoadingState } from "../../../../../../reducers/status/loading";
 import { store } from "../../../../../../store";
-import type { IPost } from "../Home";
+import type { postsType } from "../../../../../../reducers/user/types/initialState";
 
 interface response {
-  posts: IPost[];
+  posts: postsType[];
   message: string;
   success: boolean;
 }
 
 interface props {
-  setLoading: (loading: boolean) => void;
-  setPosts: (posts: IPost[]) => void;
+  setPosts: (posts: postsType[]) => void;
   page: number;
-  posts: IPost[];
+  posts: postsType[];
+  exceptionUser?: string;
 }
 
 export const getPosts = async ({
   setPosts,
-  setLoading,
   posts,
   page,
+  exceptionUser,
 }: props) => {
   try {
-    setLoading(true);
+    store.dispatch(setLoadingState({ loading: true }));
     const token = localStorage.getItem("authToken");
     if (!token) return;
 
-    const fetchPosts = await fetch(
-      `http://localhost:3000/api/get/posts?page=${page}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const url = `http://localhost:3000/api/get/posts?page=${page}${
+      exceptionUser ? `&exceptionUser=${exceptionUser}` : ""
+    }`;
+
+    const fetchPosts = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const response: response = await fetchPosts.json();
     if (!response.success) {
       return store.dispatch(
@@ -50,6 +52,6 @@ export const getPosts = async ({
     );
     console.log(e);
   } finally {
-    setLoading(false);
+    store.dispatch(setLoadingState({ loading: false }));
   }
 };
