@@ -2,7 +2,6 @@ import type { NavigateFunction } from "react-router";
 import type { IError } from "../Registration";
 import { setUnregisteredUser } from "../../../../reducers/unregisteredUser/unregisteredUser";
 import { store } from "../../../../store";
-// import { setUserInfoDispatch } from "../../../../reducers/user/userInfo";
 
 export type errorsType = {
   field: string;
@@ -38,19 +37,16 @@ export const sendForm = async ({
 }: props) => {
   try {
     setLoading(true);
-    const registration = await fetch(
-      "http://localhost:3000/auth/registration",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          login: login,
-          password: password,
-          email: email,
-          date: date,
-        }),
-      }
-    );
+    const registration = await fetch(import.meta.env.VITE_APP_API_AUTH_REG, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        login: login,
+        password: password,
+        email: email,
+        date: date,
+      }),
+    });
     const response: response = await registration.json();
     if (!response.success) {
       console.log(response.errors);

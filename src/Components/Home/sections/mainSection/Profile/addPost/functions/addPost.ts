@@ -2,7 +2,7 @@ import { setErrorSlice } from "../../../../../../../reducers/status/error";
 import { setUserPosts } from "../../../../../../../reducers/user/userInfo";
 import { store } from "../../../../../../../store";
 import { setLoadingState } from "../../../../../../../reducers/status/loading";
-import { type IaddPost } from "../../../../../types/post/postTypes";
+import type { IaddPost } from "../../../../rightMenu/types/postTypes";
 
 interface props {
   title: string;
@@ -14,7 +14,8 @@ export const addPost = async ({ title }: props) => {
     store.dispatch(setLoadingState({ loading: true }));
     const token = localStorage.getItem("authToken");
     if (!token) return;
-    const addPost = await fetch("http://localhost:3000/api/post/addPost", {
+    const url = import.meta.env.VITE_APP_API_ADD_POST;
+    const addPost = await fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,6 +34,7 @@ export const addPost = async ({ title }: props) => {
       return;
     }
     store.dispatch(setErrorSlice({ error: "", show: false }));
+    console.log(response.Post);
     store.dispatch(setUserPosts({ post: response.Post }));
     return true;
   } catch (e) {

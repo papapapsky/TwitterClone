@@ -27,20 +27,18 @@ export const changeProfileInfo = async ({
     if (!token) return;
 
     setLoading(true);
-    const change = await fetch(
-      "http://localhost:3000/api/post/changeUserInfo",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          biography: biography,
-          username: username,
-        }),
-      }
-    );
+    const url = import.meta.env.VITE_APP_API_CHANGE_USER_INFO;
+    const change = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        biography: biography,
+        username: username,
+      }),
+    });
 
     const newUserInfo: IResponse = await change.json();
     if (!newUserInfo.success) {

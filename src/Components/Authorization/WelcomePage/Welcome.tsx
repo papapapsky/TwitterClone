@@ -2,9 +2,9 @@ import Xicon from "../../assets/Xicon.png";
 import "./welcome.css";
 import { Link } from "react-router";
 
-export const Welocome = () => {
+export const Welcome = () => {
   return (
-    <div className="flex w-full h-lvh justify-center p-20 welcomeContainer">
+    <div className="flex w-[80%] mx-auto h-lvh justify-center flex-wrap welcomeContainer">
       <div className="flex items-start gap-[20vw] welcomeContent">
         <img src={Xicon} alt="Xicon" className="invert w-[18vw] Xicon" />
         <div className="w-full h-full flex flex-wrap flex-col justify-center">

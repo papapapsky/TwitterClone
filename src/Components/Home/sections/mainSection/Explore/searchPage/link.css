@@ -1,0 +1,12 @@
+.categoryActive {
+  border-bottom: 2px solid rgb(26, 114, 255);
+  color: white;
+}
+
+.categoryInActive {
+  border-bottom: 2px solid black;
+}
+
+.categoryInActive:hover {
+  border-bottom: 2px solid #262626;
+}

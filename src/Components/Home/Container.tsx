@@ -5,9 +5,9 @@ import { useSelector } from "react-redux";
 import type { RootState } from "../../reducers/user/userInfo";
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { useLocation } from "react-router";
 import { store } from "../../store";
 import { setPrevPage } from "../../reducers/pages/prevPage";
+import { useLocation } from "react-router";
 
 export const Container = () => {
   const [visible, setVisible] = useState<boolean>(false);
@@ -19,8 +19,9 @@ export const Container = () => {
   const prevLocationRef = useRef<string>("/x/home");
 
   useEffect(() => {
+    const currentLink = location.pathname + location.search + location.hash;
     store.dispatch(setPrevPage({ page: prevLocationRef.current }));
-    prevLocationRef.current = location.pathname;
+    prevLocationRef.current = currentLink;
   }, [location]);
 
   useEffect(() => {

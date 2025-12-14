@@ -16,6 +16,15 @@ interface props {
   exceptionUser?: string;
 }
 
+const shuffleArray = (arr: postsType[]) => {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+
+  return arr;
+};
+
 export const getPosts = async ({
   setPosts,
   posts,
@@ -27,7 +36,7 @@ export const getPosts = async ({
     const token = localStorage.getItem("authToken");
     if (!token) return;
 
-    const url = `http://localhost:3000/api/get/posts?page=${page}${
+    const url = `${import.meta.env.VITE_APP_API_GET_POSTS}?page=${page}${
       exceptionUser ? `&exceptionUser=${exceptionUser}` : ""
     }`;
 
@@ -45,6 +54,7 @@ export const getPosts = async ({
       );
     }
     store.dispatch(setErrorSlice({ error: "", show: false }));
+    response.posts = shuffleArray(response.posts);
     return setPosts([...response.posts, ...posts]);
   } catch (e) {
     store.dispatch(

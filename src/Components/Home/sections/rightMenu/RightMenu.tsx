@@ -8,9 +8,9 @@ export const RightMenu = () => {
   const [activeSearch, setActiveSearch] = useState<boolean>(false);
   const [searchedUsers, setSearchedUsers] = useState<searchedUserType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
   const searchInput = useRef<HTMLInputElement>(null);
   const debounceRef = useRef<number | null>(null);
-  const navigate = useNavigate();
 
   const onFocused = () => {
     setActiveSearch(true);
@@ -26,7 +26,17 @@ export const RightMenu = () => {
     <div className="ml-2 mt-2 w-full lg:max-w-[350px] shrink-0">
       <div className="fixed w-full lg:max-w-[350px]">
         <header className="w-full">
-          <div className="flex flex-col items-center relative">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (searchInput.current?.value) {
+                navigate(
+                  `/x/explore/search?title=${searchInput.current?.value}`
+                );
+              }
+            }}
+            className="flex flex-col items-center relative"
+          >
             <input
               onFocus={onFocused}
               onBlur={onBlur}
@@ -51,7 +61,7 @@ export const RightMenu = () => {
               navigate={navigate}
               searchedUsers={searchedUsers}
             />
-          </div>
+          </form>
         </header>
 
         <div className="mt-10 w-full px-5 border border-neutral-600 py-5 rounded-2xl bg-neutral-950">

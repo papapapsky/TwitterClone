@@ -28,12 +28,18 @@ const userInfo = createSlice({
     setUserInfoDispatch: (_, action: PayloadAction<IUser>) => {
       return action.payload;
     },
+    setDeleteUserPost: (state, action: PayloadAction<actionState>) => {
+      state.posts = state.posts.filter(
+        (post) => post._id !== action.payload.post._id
+      );
+    },
     setUserPosts: (state, action: PayloadAction<actionState>) => {
       state.posts.push(action.payload.post);
     },
   },
 });
 
-export const { setUserInfoDispatch, setUserPosts } = userInfo.actions;
+export const { setUserInfoDispatch, setUserPosts, setDeleteUserPost } =
+  userInfo.actions;
 export type RootState = ReturnType<typeof store.getState>;
 export default userInfo.reducer;

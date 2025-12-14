@@ -1,5 +1,12 @@
+type commentsType = {
+  username: string;
+  login: string;
+  title: string;
+};
+
 export type postsType = {
-  _id: number;
+  _id: string;
+  comments: commentsType;
   uploadDate: string;
   login: string;
   username: string;
@@ -7,7 +14,7 @@ export type postsType = {
   likes: number;
 };
 
-type followType = {
+export type followType = {
   username: string;
   login: string;
   bio: string;

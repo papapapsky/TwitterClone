@@ -56,7 +56,7 @@ export const Navigation = () => {
   }, []);
 
   return (
-    <div className="navigateSection text-left w-52 h-lvh advanced-container select-none">
+    <div className="navigateSection text-left w-55 h-lvh advanced-container select-none">
       {modalVisible && <LogoutModal setModalVisible={setModalVisible} />}
       {postAddActive && <AddPost setPostAddActive={setPostAddActive} />}
       <header className="mb-3 fixed">

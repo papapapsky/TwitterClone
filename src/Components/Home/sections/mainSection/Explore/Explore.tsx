@@ -10,8 +10,10 @@ import { ShowProfiles } from "./renderComponents/ShowProfiles";
 import { useSelector } from "react-redux";
 import type { searchedUserType } from "../../rightMenu/types/usersType";
 import { SearchUserRender } from "../../rightMenu/renderComponents/SearchUserRender";
+import { SearchPageSkeleton } from "../../../skeleton/SearchPageSkeleton";
 
 export const Explore = () => {
+  const loadingSelector = useSelector((state: RootState) => state.loading);
   const userInfoSelector = useSelector((state: RootState) => state.userInfo);
   const [posts, setPosts] = useState<postsType[]>([]);
   const searchInput = useRef<HTMLInputElement>(null);
@@ -47,7 +49,17 @@ export const Explore = () => {
     <>
       <div className="min-h-screen w-full bg-black text-white border-x border-neutral-700">
         <header className="w-full flex sticky flex-col top-0 bg-black/80 backdrop-blur-md z-10">
-          <div className="h-15 w-full flex justify-around items-center">
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              if (searchInput.current?.value) {
+                navigate(
+                  `/x/explore/search?title=${searchInput.current?.value}`
+                );
+              }
+            }}
+            className="h-15 w-full flex justify-around items-center"
+          >
             <input
               onFocus={onFocused}
               onBlur={onBlur}
@@ -69,7 +81,7 @@ export const Explore = () => {
             <div className="p-2 hover:bg-neutral-900 rounded-full duration-200">
               <SettingsIcon />
             </div>
-          </div>
+          </form>
           <SearchUserRender
             activeSearch={activeSearch}
             loading={loading}
@@ -99,33 +111,51 @@ export const Explore = () => {
             </h1>
           </button>
         </div>
-        <div className="flex flex-col-reverse">
-          {posts.length > 0 &&
-            posts
-              .slice(6, posts.length)
-              .map(({ title, likes, username, login, uploadDate, _id }, i) => (
-                <div key={i}>
-                  <PostsRender
-                    title={title}
-                    likes={likes}
-                    username={username}
-                    login={login}
-                    uploadDate={uploadDate}
-                    i={i}
-                    _id={_id}
-                  />
-                </div>
-              ))}
-        </div>
-        <hr className="border-neutral-800" />
-        <div className="mt-5">
-          <h1 className="text-center text-2xl font-semibold">
-            Recommended profiles
-          </h1>
-          <div className="pb-40">
-            <ShowProfiles />
-          </div>
-        </div>
+        {!loadingSelector.loading ? (
+          <>
+            <div className="flex flex-col-reverse">
+              {posts.length > 0 &&
+                posts.map(
+                  (
+                    {
+                      title,
+                      likes,
+                      username,
+                      comments,
+                      login,
+                      uploadDate,
+                      _id,
+                    },
+                    i
+                  ) => (
+                    <div key={i}>
+                      <PostsRender
+                        comments={comments}
+                        title={title}
+                        likes={likes}
+                        username={username}
+                        login={login}
+                        uploadDate={uploadDate}
+                        i={i}
+                        _id={_id}
+                      />
+                    </div>
+                  )
+                )}
+            </div>
+            <hr className="border-neutral-800" />
+            <div className="mt-5">
+              <h1 className="text-center text-2xl font-semibold">
+                Recommended profiles
+              </h1>
+              <div className="pb-40">
+                <ShowProfiles />
+              </div>
+            </div>
+          </>
+        ) : (
+          <SearchPageSkeleton />
+        )}
       </div>
     </>
   );

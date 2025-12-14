@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import type { IUser } from "../../../../../../../../reducers/user/types/initialState";
 import { Calendar } from "../../../assets/Calendar";
 
@@ -12,6 +13,8 @@ export const ProfileInfoRender = ({
   userInfoSelector,
   anotherUser,
 }: IProps) => {
+  const navigate = useNavigate();
+
   return (
     <section className="pt-16 px-6">
       <h3 className="text-xl font-semibold">
@@ -39,16 +42,19 @@ export const ProfileInfoRender = ({
         <p className="text-neutral-500">
           <span className="text-white font-semibold">
             {userAccount
-              ? userInfoSelector.followingEqual
-              : anotherUser?.followingEqual}
+              ? userInfoSelector.following.length
+              : anotherUser?.following.length}
           </span>{" "}
           following
         </p>
-        <p className="text-neutral-500">
+        <p
+          className="text-neutral-500 hover:underline"
+          onClick={() => navigate("followers")}
+        >
           <span className="text-white font-semibold">
             {userAccount
-              ? userInfoSelector.followersEqual
-              : anotherUser?.followersEqual}
+              ? userInfoSelector.followers.length
+              : anotherUser?.followers.length}
           </span>{" "}
           followers
         </p>

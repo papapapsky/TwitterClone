@@ -17,7 +17,7 @@ export const SearchUserRender = ({
 }: IProps) => {
   return (
     <>
-      {searchedUsers.length > 0 && activeSearch ? (
+      {searchedUsers.length && activeSearch ? (
         <div className="absolute top-full mt-1 w-full bg-black border shadow-neutral-900 shadow-2xl border-neutral-500/50 rounded-xl overflow-hidden z-10">
           {searchedUsers.map((user, index) => (
             <div
@@ -39,12 +39,14 @@ export const SearchUserRender = ({
       ) : (
         activeSearch && (
           <>
-            <div className="pt-5 pb-9 absolute top-full mt-1 w-full bg-black border border-neutral-500/50 rounded-xl overflow-hidden z-10">
+            <div className="pt-5 absolute top-full mt-1 w-full bg-black border border-neutral-500/50 rounded-xl overflow-hidden z-10">
               <p className="text-sm text-neutral-500 text-center mb-6">
                 Try searching for people, lists, or keywords
               </p>
               {loading && (
-                <div className="mx-auto w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                <div className="pb-7">
+                  <div className="mx-auto w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                </div>
               )}
             </div>
           </>

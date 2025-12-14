@@ -1,6 +1,7 @@
 import { UserIcon } from "../../../../../navigation/assets/UserIcon";
 import { Like } from "../../../assets/Like";
 import type { postsType } from "../../../../../../../../reducers/user/types/initialState";
+import { useNavigate } from "react-router";
 
 export const AnotherUserPostsRender = ({
   username,
@@ -10,6 +11,8 @@ export const AnotherUserPostsRender = ({
   uploadDate,
   _id,
 }: postsType) => {
+  const navigate = useNavigate();
+
   return (
     <div
       id={`${_id}`}
@@ -22,8 +25,10 @@ export const AnotherUserPostsRender = ({
           <p className="text-neutral-500 text-sm">@{login}</p>
         </div>
       </div>
-      <p className="text-sm ml-13 mt-2 mb-2 wrap-break-word">{title}</p>
-      <div className="flex ml-13 items-center">
+      <div onClick={() => navigate(`/x/post/${_id}`)} className="py-2">
+        <p className="text-sm ml-13 wrap-break-word">{title}</p>
+      </div>
+      <div className="flex ml-13 justify-between items-center">
         <span className="text-gray-500 text-[12px]">• {uploadDate}</span>
         <button className="flex items-center gap-1 text-gray-500 hover:text-pink-500 hover:bg-pink-500/20 px-3 py-1 rounded-full duration-200">
           <Like classes="fill-gray-500 hover:fill-pink-500" />

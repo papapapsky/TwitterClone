@@ -41,7 +41,7 @@ export const SetUpProfile = ({ setChangeProfile }: props) => {
   return createPortal(
     <div className="bg-gray-700/60 fixed h-lvh w-full z-20">
       {loading && (
-        <div className="p-4 modalElement top-[50%] w-170 min-h-90 rounded-xl bg-black/50 z-20">
+        <div className="p-4 modalElement top-[50%] w-full min-h-full rounded-xl bg-black/50 z-20">
           <div className="loader"></div>
         </div>
       )}
