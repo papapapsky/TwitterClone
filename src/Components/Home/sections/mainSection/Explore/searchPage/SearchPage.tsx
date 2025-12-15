@@ -164,7 +164,7 @@ export const SearchPage = () => {
                 )}
 
             {searchedUsers && searchedUsers.length > 0 && (
-              <div className="flex gap-5 px-10 justify-evenly flex-wrap w-full">
+              <div className="flex gap-5 px-10 justify-evenly flex-wrap w-full mt-3">
                 {searchedUsers.map(({ login, username }, index) => (
                   <Link
                     to={`/x/profile/${login}`}
