@@ -1,12 +1,12 @@
-import { setErrorSlice } from "../../../../../../reducers/status/error";
-import { setLoadingState } from "../../../../../../reducers/status/loading";
 import { store } from "../../../../../../store";
+import { setLoadingState } from "../../../../../../reducers/status/loading";
+import { setErrorSlice } from "../../../../../../reducers/status/error";
 import type { followType } from "../../../../../../reducers/user/types/initialState";
 
 interface IResponse {
-  message: string;
   success: boolean;
-  followers: followType[];
+  message: string;
+  followings: followType[];
 }
 
 interface IProps {
@@ -14,13 +14,13 @@ interface IProps {
   page: number;
 }
 
-export const getFollowers = async ({ login, page }: IProps) => {
+export const getFollowings = async ({ login, page }: IProps) => {
   try {
     store.dispatch(setLoadingState({ loading: true }));
     const authToken = localStorage.getItem("authToken");
     if (!authToken) return;
     const url = `${
-      import.meta.env.VITE_APP_API_GET_FOLLOWERS
+      import.meta.env.VITE_APP_API_GET_FOLLOWINGS
     }?login=${login}&page=${page}`;
 
     const request = await fetch(url, {
@@ -34,8 +34,7 @@ export const getFollowers = async ({ login, page }: IProps) => {
     if (!response.success) {
       store.dispatch(setErrorSlice({ error: response.message, show: true }));
     }
-    console.log(response);
-    return response.followers;
+    return response.followings;
   } catch (e) {
     console.log(e);
     store.dispatch(

@@ -6,6 +6,7 @@ import { Explore } from "./Explore/Explore";
 import { SearchPage } from "./Explore/searchPage/SearchPage";
 import { ViewPost } from "./ViewPost/ViewPost";
 import { FollowersList } from "./Profile/sections/FollowersList";
+import { FollowingsList } from "./Profile/sections/FollowingsList";
 
 export const MainSection = () => {
   return (
@@ -21,6 +22,10 @@ export const MainSection = () => {
           <Route path="explore" element={<Explore />} />
           <Route path="post/:id" element={<ViewPost />} />
           <Route path="profile/:login/followers" element={<FollowersList />} />
+          <Route
+            path="profile/:login/followings"
+            element={<FollowingsList />}
+          />
         </Routes>
       </div>
     </>

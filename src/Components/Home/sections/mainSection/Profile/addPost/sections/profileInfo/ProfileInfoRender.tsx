@@ -39,7 +39,10 @@ export const ProfileInfoRender = ({
       </p>
 
       <div className="flex gap-5 text-sm">
-        <p className="text-neutral-500">
+        <p
+          className="text-neutral-500 hover:underline"
+          onClick={() => navigate("followings")}
+        >
           <span className="text-white font-semibold">
             {userAccount
               ? userInfoSelector.following.length
